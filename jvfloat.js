@@ -5,7 +5,7 @@
 
 (function($) {
   'use strict';
-  
+
   // Init Plugin Functions
   $.fn.jvFloat = function () {
     // Check input type - filter submit buttons.
@@ -35,6 +35,24 @@
         }
 
         placeholder.toggleClass('active', currentValue !== '');
+
+        //
+        // Helper classes for placeholder focus styling
+        //
+        if ( $(this).is(':focus') ) {
+            placeholder.addClass('focus');
+        } else {
+            placeholder.removeClass('focus');
+        }
+
+        //
+        // Helper classes for animation firing
+        //
+        if ( placeholder.hasClass('active') ) {
+            placeholder.addClass('in').removeClass('out');
+        } else {
+            placeholder.addClass('out').removeClass('in');
+        }
       }
       function generateUIDNotMoreThan1million () {
         var id = '';
@@ -55,8 +73,8 @@
       // Store the placeholder text in span.placeHolder
       // added `required` input detection and state
       var required = $el.attr('required') || '';
-      
-      // adds a different class tag for text areas (.jvFloat .placeHolder.textarea) 
+
+      // adds a different class tag for text areas (.jvFloat .placeHolder.textarea)
       // to allow better positioning of the element for multiline text area inputs
       var placeholder = '';
       var placeholderText = getPlaceholderText($el);
